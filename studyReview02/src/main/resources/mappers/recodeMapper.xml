@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recode">
+
+	<insert id="insertRecode" parameterType="kr.co.vo.RecodeVO">
+		INSERT INTO USER_INFO (
+			user_register_date
+			, user_name
+			, user_social_secunum
+			, user_gender
+			, user_comp
+			, user_comp_enterdate
+			, user_dept
+			, user_spot
+			, user_army_serv
+			, user_marital_status
+			, user_army_serv_enter
+			, user_army_serv_leave
+			, user_army_serv_period
+			, user_telnum_wired
+			, user_telnum_wireless
+			, user_email
+			, user_zipcode
+			, user_address
+		) VALUES (
+			now()
+			, #{user_name}
+			, #{user_social_secunum}
+			, CASE WHEN #{user_gender} = '1' THEN '남자'
+				   WHEN #{user_gender} = '2' THEN '여자' ELSE '선택없음' END
+			, #{user_comp}
+			, #{user_comp_enterdate}
+			, #{user_dept}
+			, #{user_spot}
+			, #{user_army_serv}
+			, CASE WHEN #{user_marital_status} = '1' THEN '미혼'
+				   WHEN #{user_marital_status} = '2' THEN '기혼' ELSE '선택없음' END
+			, #{user_army_serv_enter}
+			, #{user_army_serv_leave}
+			, #{user_army_serv_period}
+			, #{user_telnum_wired}
+			, #{user_telnum_wireless}
+			, #{user_email}
+			, #{user_zipcode}
+			, #{user_address}
+		)
+	</insert>
+	
+	<insert id="insertRecodeEdu" parameterType="kr.co.vo.RecodeEduVO" useGeneratedKeys="true" keyProperty="user_idx">
+		<selectKey keyProperty="user_idx" resultType="int" order="BEFORE">
+    		SELECT MAX(user_idx)
+    		FROM USER_INFO
+		</selectKey>
+		INSERT INTO USER_INFO_EDU (
+			user_idx
+			, edu_school_nane
+			, edu_status
+			, edu_year
+			, edu_month
+		) VALUES (
+			#{user_idx}
+			, #{edu_school_nane}
+			, CASE WHEN #{edu_status} = '1' THEN '졸업'
+				   WHEN #{edu_status} = '2' THEN '편입'
+				   WHEN #{edu_status} = '3' THEN '수료' ELSE '선택없음' END
+			, #{edu_year}
+			, #{edu_month}
+		)
+	</insert>
+	
+</mapper>

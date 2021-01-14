@@ -14,12 +14,20 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
 	<!-- 오라클 접속 -->
-    <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
+    <!-- <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
         <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
         <property name="url" value="jdbc:log4jdbc:oracle:thin:@localhost:1521/orcl"/>
         <property name="username" value="studyReview02"/>
         <property name="password" value="1234"/>
-    </bean>
+    </bean> -->
+    
+    <!--dataSource 객체 설정 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+        <property name="url" value="jdbc:log4jdbc:mysql://127.0.0.1:3306/study09?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;serverTimezone=UTC" />      
+		<property name="username" value="study09"></property>
+		<property name="password" value="1234"></property>
+	</bean>
    
     <!-- Mybatis 연동 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
